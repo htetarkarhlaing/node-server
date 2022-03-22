@@ -31,19 +31,11 @@ app.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, cross_fetch_1.default)(req.body.url)
         .then((response) => response.json())
         .then((resJosn) => {
-        console.log(resJosn);
         res.status(200).send(resJosn);
+    })
+        .catch((err) => {
+        res.status(500).send(err);
     });
-    // try {
-    //   const res = await fetch(req.body.url);
-    //   if (res.status >= 400) {
-    //     throw new Error("Bad response from server");
-    //   }
-    //   const user = await res.json();
-    //   console.log(user);
-    // } catch (err) {
-    //   console.error(err);
-    // }
 }));
 app.listen(PORT, () => {
     console.log("server is starting on port", PORT);

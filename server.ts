@@ -21,20 +21,11 @@ app.post("/", async (req: any, res: any) => {
   await fetch(req.body.url)
     .then((response: any) => response.json())
     .then((resJosn: any) => {
-      console.log(resJosn);
       res.status(200).send(resJosn);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
     });
-  // try {
-  //   const res = await fetch(req.body.url);
-
-  //   if (res.status >= 400) {
-  //     throw new Error("Bad response from server");
-  //   }
-  //   const user = await res.json();
-  //   console.log(user);
-  // } catch (err) {
-  //   console.error(err);
-  // }
 });
 
 app.listen(PORT, () => {
