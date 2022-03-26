@@ -1,19 +1,28 @@
+// importing required packages
 import "dotenv/config";
 import express from "express";
+import {
+  createProxyMiddleware,
+  Filter,
+  Options,
+  RequestHandler,
+} from "http-proxy-middleware";
 import cors from "cors";
 import fetch from "cross-fetch";
 
-//PORT
+//ENV
 const PORT = process.env.PORT || 8000;
 
+//express server instance
 const app = express();
+
 //middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //routes
-app.get("/", (req: any, res: any) => {
+app.get("/", (req: express.Request, res: express.Response) => {
   res.status(200).json("Hello World");
 });
 
