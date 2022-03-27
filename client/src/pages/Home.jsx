@@ -91,7 +91,7 @@ const Home = () => {
                 <p className="text-indigo-100 text-xs">Choco: Bokdok kywayy</p>
               </div>
             </div>
-            <p className="text-gray-100 text-sm">12mins</p>
+            <p className="text-gray-100 text-xs">12mins</p>
           </div>
 
           <div className="flex justify-between items-center w-full p-3 border-b border-gray-300 border-opacity-60 hover:bg-gray-500 hover:bg-opacity-40 hover:rounded-lg cursor-pointer">
