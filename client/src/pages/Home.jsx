@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ChatList from "../components/Chatlist";
 
 // icon 
 import { BellIcon,SearchIcon,ChatIcon, PhoneIcon, VideoCameraIcon, InformationCircleIcon, PhotographIcon, PaperAirplaneIcon, ViewGridIcon, CameraIcon } from "@heroicons/react/outline" ;
 
 const Home = () => {
   return (
-    <div className="w-full bg-gradient-to-r from-indigo-400 to-purple-400">
+    <div className="h-screen w-full bg-gradient-to-r from-indigo-400 to-purple-400">
       {/* go to <Link to="/about">About</Link> page */}
 
       <div className="fixed top-0 left-0 z-10 h-14 w-full bg-gray-600 flex justify-between items-center px-10 bg-opacity-30 backdrop-blur-sm">
@@ -38,73 +39,7 @@ const Home = () => {
             <button className="text-gray-200 bg-gray-500 bg-opacity-40 p-0.5 px-2 rounded-md text-sm mx-2">Done</button>
             <button className="text-gray-200 p-0.5 px-2 border-dotted border border-gray-100 border-opacity-80 rounded-md text-sm">Unread</button>
           </div>
-
-          <div className="flex justify-between items-center w-full p-3 border-b border-gray-300 border-opacity-60 hover:bg-gray-500 hover:bg-opacity-40 hover:rounded-lg cursor-pointer">
-            <div className="flex items-center">
-              <img src="./rabbit.jpg" alt="chat1" className="w-10 h-10 rounded-full" />
-              <div className="mx-5">
-                <p className="text-gray-100 text-sm my-1">Berry</p>
-                <p className="text-indigo-100 text-xs">You: 5ing!!</p>
-              </div>
-            </div>
-            <p className="text-gray-100 text-xs">12mins</p>
-          </div>
-
-          <div className="flex justify-between items-center w-full p-3 border-b border-gray-300 border-opacity-60 hover:bg-gray-500 hover:bg-opacity-40 hover:rounded-lg cursor-pointer">
-            <div className="flex items-center">
-              <img src="./rabbit.jpg" alt="chat1" className="w-10 h-10 rounded-full" />
-              <div className="mx-5">
-                <p className="text-gray-100 text-sm my-1">Htet Arkar</p>
-                <p className="text-indigo-100 text-xs">Htet: Tat trr</p>
-              </div>
-            </div>
-            <p className="text-gray-100 text-xs">12mins</p>
-          </div>
-
-          <div className="flex justify-between items-center w-full p-3 border-b border-gray-300 border-opacity-60 hover:bg-gray-500 hover:bg-opacity-40 hover:rounded-lg cursor-pointer">
-            <div className="flex items-center">
-              <img src="./rabbit.jpg" alt="chat1" className="w-10 h-10 rounded-full" />
-              <div className="mx-5">
-                <p className="text-gray-100 text-sm my-1">SaSa</p>
-                <p className="text-indigo-100 text-xs">You: ma htar yayyy</p>
-              </div>
-            </div>
-            <p className="text-gray-100 text-xs">12mins</p>
-          </div>
-
-          <div className="flex justify-between items-center w-full p-3 border-b border-gray-300 border-opacity-60 hover:bg-gray-500 hover:bg-opacity-40 hover:rounded-lg cursor-pointer">
-            <div className="flex items-center">
-              <img src="./rabbit.jpg" alt="chat1" className="w-10 h-10 rounded-full" />
-              <div className="mx-5">
-                <p className="text-gray-100 text-sm my-1">Ko Nyi</p>
-                <p className="text-indigo-100 text-xs">You: Hote kae</p>
-              </div>
-            </div>
-            <p className="text-gray-100 text-xs">12mins</p>
-          </div>
-
-          <div className="flex justify-between items-center w-full p-3 border-b border-gray-300 border-opacity-60 hover:bg-gray-500 hover:bg-opacity-40 hover:rounded-lg cursor-pointer">
-            <div className="flex items-center">
-              <img src="./rabbit.jpg" alt="chat1" className="w-10 h-10 rounded-full" />
-              <div className="mx-5">
-                <p className="text-gray-100 text-sm my-1">Choco</p>
-                <p className="text-indigo-100 text-xs">Choco: Bokdok kywayy</p>
-              </div>
-            </div>
-            <p className="text-gray-100 text-xs">12mins</p>
-          </div>
-
-          <div className="flex justify-between items-center w-full p-3 border-b border-gray-300 border-opacity-60 hover:bg-gray-500 hover:bg-opacity-40 hover:rounded-lg cursor-pointer">
-            <div className="flex items-center">
-              <img src="./rabbit.jpg" alt="chat1" className="w-10 h-10 rounded-full" />
-              <div className="mx-5">
-                <p className="text-gray-100 text-sm my-1">Luu Luu</p>
-                <p className="text-indigo-100 text-xs">You: Banana wel kwayy ml</p>
-              </div>
-            </div>
-            <p className="text-gray-100 text-xs">12mins</p>
-          </div>
-          
+          <ChatList name="hey" msg="You: 5ting!!" time="12mins"/>
         </div>
         <div className="w-0.5 bg-gray-50 opacity-20 ml-8">
 
