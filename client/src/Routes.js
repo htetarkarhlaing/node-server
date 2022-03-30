@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import About from "./pages/About";
 import Home from "./pages/Home";
+import Register from "./pages/Register";
 
 const Routes = () => {
   return (
@@ -17,6 +18,9 @@ const Routes = () => {
             <About />
           </Route>
           {/* end of routes */}
+          <Route path="/register">
+            <Register />
+          </Route>
         </Switch>
       </Router>
     </div>
