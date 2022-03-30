@@ -1,7 +1,2 @@
-import UserModel from "./User.model";
-
-const Model = {
-  User: UserModel,
-};
-
-export default Model;
+export { default as Role } from "./Role.model";
+export { default as User } from "./User.model";

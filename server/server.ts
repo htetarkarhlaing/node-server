@@ -1,40 +1,34 @@
 // importing required packages
 import "dotenv/config";
 import express from "express";
-import {
-  createProxyMiddleware,
-  Filter,
-  Options,
-  RequestHandler,
-} from "http-proxy-middleware";
 import cors from "cors";
-import fetch from "cross-fetch";
+
+import { Mail } from "./utilities";
+
+//importing custom packages
+import DBConnector from "./config/db.config";
+import routes from "./routes";
 
 //ENV
 const PORT = process.env.PORT || 8000;
 
 //express server instance
 const app = express();
+const httpServer = require("http").Server(app);
+const io = require("socket.io")(httpServer);
 
 //middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+DBConnector();
 
 //routes
-app.get("/", (req: express.Request, res: express.Response) => {
-  res.status(200).json("Hello World");
-});
+app.use("/", routes);
 
-app.post("/", async (req: any, res: any) => {
-  await fetch(req.body.url)
-    .then((response: any) => response.json())
-    .then((resJosn: any) => {
-      res.status(200).send(resJosn);
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
+//socket event handlers
+io.on("connection", function (socket: any) {
+  console.log("a user connected", socket);
 });
 
 app.listen(PORT, () => {
