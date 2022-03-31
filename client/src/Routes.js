@@ -4,6 +4,7 @@ import { Model } from "./components/model";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
+import ConfirmRegister from "./pages/ConfirmRegister";
 
 const Routes = () => {
   return (
@@ -22,9 +23,13 @@ const Routes = () => {
           <Route path="/register">
             <Register />
           </Route>
+          {/* end of routes */}
+          <Route path="/confirm-register">
+            <ConfirmRegister />
+          </Route>
         </Switch>
       </Router>
-      <Model />
+      {/* <Model /> */}
     </div>
   );
 };
