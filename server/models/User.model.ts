@@ -2,6 +2,7 @@ import { Schema, model, Types } from "mongoose";
 import uniqueValidator from "mongoose-unique-validator";
 
 interface User {
+  _id?: string;
   username: string;
   email: string;
   password?: string;

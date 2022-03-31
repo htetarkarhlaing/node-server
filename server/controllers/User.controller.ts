@@ -4,14 +4,24 @@ import jwt from "jsonwebtoken";
 import fs from "fs";
 import path from "path";
 import handlebars from "handlebars";
-import { Mail } from "../utilities";
+import { Mail, Responser } from "../utilities";
 
 interface IUserRegister {
+  _id?: string;
   username: string;
   email: string;
   password?: string;
   role?: string;
   token?: string;
+}
+
+interface IUserResult {
+  _id: string;
+  username: string;
+  email: string;
+  password: string;
+  role: any;
+  token: string;
 }
 
 const userRegister = async (req: Request, res: Response) => {
@@ -62,44 +72,49 @@ const userRegister = async (req: Request, res: Response) => {
         { mailTo: email, subject, html: registerTemplate({ link }) },
         (err, data) => {
           if (err) {
-            return res.status(500).json({
-              meta: {
-                success: false,
-                message: "internal-server-error",
-              },
+            Responser({
+              res,
+              status: 500,
+              body: null,
+              message: "internal-server-error",
+              devMessage: err,
             });
           }
           if (data) {
-            return res.status(201).json({
-              meta: {
-                success: true,
-                message: "created",
-              },
+            Responser({
+              res,
+              status: 201,
+              body: null,
+              message: "confirmation-mail-sent",
+              devMessage: "created",
             });
           } else {
-            return res.status(402).json({
-              meta: {
-                success: false,
-                message: "something-went-wrong",
-              },
+            Responser({
+              res,
+              status: 402,
+              body: null,
+              message: "something-went-wrong",
+              devMessage: "something-went-wrong",
             });
           }
         }
       );
     } else {
-      return res.status(503).json({
-        meta: {
-          success: false,
-          message: "something-went-wrong",
-        },
+      Responser({
+        res,
+        status: 503,
+        body: null,
+        message: "something-went-wrong",
+        devMessage: "something-went-wrong",
       });
     }
   } catch (err) {
-    return res.status(500).json({
-      meta: {
-        success: false,
-        message: err,
-      },
+    Responser({
+      res,
+      status: 500,
+      body: null,
+      message: "internal-server-error",
+      devMessage: err,
     });
   }
 };
@@ -113,30 +128,68 @@ const userEmailActiviate = async (req: Request, res: Response) => {
       process.env.APP_SECRET,
       async (err: any, decodedToken: any) => {
         if (err) {
-          return res.status(500).json({
-            meta: {
-              success: false,
-              message: "internal-server-error",
-            },
+          Responser({
+            res,
+            status: 500,
+            body: null,
+            message: "internal-server-error",
+            devMessage: err,
           });
         } else if (decodedToken) {
           const newUser = await User.create(decodedToken);
-          return res.status(201).json({
-            meta: {
-              success: true,
-              message: "user-created",
-            },
-            data: newUser,
+          Responser({
+            res,
+            status: 201,
+            body: newUser,
+            message: "confirmation-success",
+            devMessage: "created",
           });
         }
       }
     );
   } else {
-    return res.status(400).json({
-      meta: {
-        success: true,
-        message: "something-went-wrong",
-      },
+    Responser({
+      res,
+      status: 503,
+      body: null,
+      message: "something-went-wrong",
+      devMessage: "something-went-wrong",
+    });
+  }
+};
+
+const userLogin = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  const validUser = await User.findOne({ email });
+  if (validUser) {
+    if (validUser.password === password) {
+      const token = jwt.sign({ _id: validUser._id }, process.env.APP_SECRET, {
+        expiresIn: "7d",
+      });
+      Responser({
+        res,
+        status: 200,
+        body: { user: validUser, token },
+        message: "login-success",
+        devMessage: "login via token",
+      });
+    } else {
+      Responser({
+        res,
+        status: 404,
+        body: null,
+        message: "password-not-match",
+        devMessage: "password-not-match",
+      });
+    }
+  } else {
+    Responser({
+      res,
+      status: 404,
+      body: null,
+      message: "email-not-found",
+      devMessage: "email-not-found",
     });
   }
 };
@@ -144,6 +197,7 @@ const userEmailActiviate = async (req: Request, res: Response) => {
 const UserController = {
   userRegister,
   userEmailActiviate,
+  userLogin,
 };
 
 export default UserController;

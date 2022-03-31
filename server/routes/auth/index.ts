@@ -11,7 +11,7 @@ authRoutes.get("/roles/", RoleController.roleListFetcher);
 authRoutes.post("/roles/create", RoleController.roleRegister);
 //users
 authRoutes.post("/register", UserController.userRegister);
-authRoutes.post("/login");
+authRoutes.post("/login", UserController.userLogin);
 authRoutes.get("/activiate/:token", UserController.userEmailActiviate);
 
 export default authRoutes;

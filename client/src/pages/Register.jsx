@@ -9,10 +9,12 @@ import React, { useState, useEffect } from "react";
 import { Button, Select, TextField } from "../components/form";
 import { Link } from "react-router-dom";
 import { capitalCase } from "change-case";
+import { useDispatch } from "react-redux";
 
 const Register = () => {
   //instances
   const URL = process.env.REACT_APP_URL;
+  const dispatch = useDispatch();
   const fetchOption = {
     mehtod: "GET",
     headers: {
@@ -53,31 +55,38 @@ const Register = () => {
   };
 
   const handleOnSubmit = () => {
-    fetch(`${URL}/api/auth/register`, {
-      mehtod: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: {
-        username: form.username,
-        email: form.email,
-        password: form.password,
-        role: form.role,
-      },
+    // fetch(`${URL}/api/auth/register`, {
+    //   mehtod: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //   },
+    //   body: {
+    //     username: form.username,
+    //     email: form.email,
+    //     password: form.password,
+    //     role: form.role,
+    //   },
+    // })
+    //   .then((response) => response.json())
+    //   .then((resJson) => {
+    //     if (resJson.meta.success) {
+    //       setRoleList(resJson.data.role);
+    //     } else {
+    //       setRoleList([]);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     setRoleList([]);
+    //   });
+    dispatch({
+      type: "OPEN_MODEL",
+      payloads: {
+        title: 'hey',
+        body: "lorem.."
+      }
     })
-      .then((response) => response.json())
-      .then((resJson) => {
-        if (resJson.meta.success) {
-          setRoleList(resJson.data.role);
-        } else {
-          setRoleList([]);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setRoleList([]);
-      });
   };
 
   useEffect(() => {
@@ -159,7 +168,7 @@ const Register = () => {
         <div className="text-center mt-5">
           <p className="text-sm text-gray-500">Already have an account?</p>
           <div>
-            <Link href="/login" className="text-blue-500 text-sm">
+            <Link to="/login" className="text-blue-500 text-sm">
               Sign In from here
             </Link>
           </div>
