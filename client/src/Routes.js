@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import ConfirmRegister from "./pages/ConfirmRegister";
+import Login from "./pages/Login";
 
 const Routes = () => {
   return (
@@ -22,6 +23,10 @@ const Routes = () => {
           {/* end of routes */}
           <Route path="/register">
             <Register />
+          </Route>
+           {/* end of routes */}
+           <Route path="/login">
+            <Login />
           </Route>
           {/* end of routes */}
           <Route path="/confirm-register">
