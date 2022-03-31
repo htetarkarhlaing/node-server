@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Model } from "./components/model";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
@@ -23,6 +24,7 @@ const Routes = () => {
           </Route>
         </Switch>
       </Router>
+      <Model />
     </div>
   );
 };
