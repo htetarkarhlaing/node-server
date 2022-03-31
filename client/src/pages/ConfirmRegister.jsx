@@ -16,8 +16,8 @@ const ConfirmRegister = () => {
         <p className="text-green-400 text-xl">Success</p>
         <p className="text-gray-200 text-center text-sm">That's it! Now you are ready to get started. Please click OK to continue.</p>
 
-        <div>
-          
+        <div className="text-gray-100 text-sm mt-3">
+          <button className="border border-white rounded-md border-opacity-30 p-1 px-6 mr-3">OK</button>
         </div>
       </div>
     </div>
