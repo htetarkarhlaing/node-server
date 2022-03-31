@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@300&display=swap");
+      body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .card {
+        width: auto;
+        margin: 0px 25%;
+        background-color: #ffffff;
+        border: 1px solid #e5e5e5;
+      }
+
+      @media screen and (max-width: 600px) {
+        .card {
+          width: auto;
+          margin: 0px 0%;
+          background-color: #ffffff;
+          border: 1px solid #e5e5e5;
+        }
+      }
+
+      .title {
+        width: 100%;
+        background-color: royalblue;
+        font-family: "Roboto", sans-serif;
+        color: #fff;
+        padding: 2px 0;
+        text-align: center;
+      }
+      .cardbody {
+        font-family: "Roboto", sans-serif;
+        color: #777;
+        margin: 10px;
+        text-align: center;
+      }
+      img {
+        width: 80px;
+        height: 70px;
+      }
+      .textone {
+        font-size: 14px;
+        padding: 10px 20px;
+        text-align: center;
+      }
+      .btn-wrapper {
+        width: 100%;
+        padding-left: 40%;
+        padding-bottom: 30px;
+      }
+
+      .confirm-btn {
+        width: 20%;
+        font-family: "Roboto", sans-serif;
+        background-color: royalblue;
+        border: none;
+        color: white !important;
+        text-decoration: none !important;
+        padding: 8px 5px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <div class="title">
+        <h2>Verification</h2>
+      </div>
+      <div class="cardbody">
+        <img src="./envelope.png" alt="envelope" />
+        <h3>Email Confirmation</h3>
+         <p class="textone">
+         Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+         Temporibus dicta possimus ex numquam qui optio vitae beatae sequi voluptatibus modi ab, 
+         labore deserunt quis accusantium animi voluptates eum minima ipsum.
+
+         Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+         Nobis quaerat odit illum animi fugiat sunt temporibus voluptas laboriosam optio voluptates.
+          Nemo, minima libero inventore expedita magnam iste! Aperiam, fugiat dicta?
+        </p>
+        <p class="textone">
+          Please Click the button below to confirm your email address and
+          activate your account.
+        </p>
+      </div>
+      <div class="btn-wrapper">
+        <a class="confirm-btn" href="{{link}}">Verify Email Address</a>
+      </div>
+    </div>
+  </body>
+</html>
