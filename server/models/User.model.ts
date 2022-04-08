@@ -8,6 +8,7 @@ interface User {
   password?: string;
   role: string;
   token?: string;
+  profile?: Types.ObjectId;
 }
 
 const userSchema = new Schema<User>(
@@ -20,6 +21,7 @@ const userSchema = new Schema<User>(
       ref: "Role",
     },
     token: { type: String },
+    profile: { type: Types.ObjectId, ref: "Profile" },
   },
   {
     timestamps: true,

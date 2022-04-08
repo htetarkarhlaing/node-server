@@ -15,15 +15,6 @@ interface IUserRegister {
   token?: string;
 }
 
-interface IUserResult {
-  _id: string;
-  username: string;
-  email: string;
-  password: string;
-  role: any;
-  token: string;
-}
-
 const userRegister = async (req: Request, res: Response) => {
   //user register interface
   interface UserRegisterProps {
@@ -37,76 +28,87 @@ const userRegister = async (req: Request, res: Response) => {
   const { username, email, password, role }: UserRegisterProps = req.body;
 
   try {
-    //user inserting
-    const newUser: IUserRegister = {
-      username,
-      password,
-      email,
-      role,
-    };
-    if (newUser) {
-      const { username, email, password, role } = newUser;
-      //verification token generating
-      const token = jwt.sign(
-        {
-          username,
-          email,
-          password,
-          role,
-        },
-        process.env.APP_SECRET,
-        { expiresIn: "24hr" }
-      );
-      const link = `${process.env.CLIENT_URL}/account-confirm/${token}`;
-      const subject = "PLease confirm your account";
-
-      //importing template
-      const registerHandlebar = fs.readFileSync(
-        path.join(__dirname, "../views/register.hbs"),
-        "utf8"
-      );
-      const registerTemplate = handlebars.compile(registerHandlebar);
-
-      //sending mail to user email to confirm account
-      Mail.send(
-        { mailTo: email, subject, html: registerTemplate({ link }) },
-        (err, data) => {
-          if (err) {
-            Responser({
-              res,
-              status: 500,
-              body: null,
-              message: "internal-server-error",
-              devMessage: err,
-            });
-          }
-          if (data) {
-            Responser({
-              res,
-              status: 201,
-              body: null,
-              message: "confirmation-mail-sent",
-              devMessage: "created",
-            });
-          } else {
-            Responser({
-              res,
-              status: 402,
-              body: null,
-              message: "something-went-wrong",
-              devMessage: "something-went-wrong",
-            });
-          }
-        }
-      );
-    } else {
+    const existingUser = await User.find({ email: email });
+    if (existingUser) {
       Responser({
         res,
-        status: 503,
+        status: 402,
         body: null,
-        message: "something-went-wrong",
+        message: "Email already exist.",
         devMessage: "something-went-wrong",
       });
+    } else {
+      //user inserting
+      const newUser: IUserRegister = {
+        username,
+        password,
+        email,
+        role,
+      };
+      if (newUser) {
+        const { username, email, password, role } = newUser;
+        //verification token generating
+        const token = jwt.sign(
+          {
+            username,
+            email,
+            password,
+            role,
+          },
+          process.env.APP_SECRET,
+          { expiresIn: "24hr" }
+        );
+        const link = `${process.env.CLIENT_URL}/account-confirm/${token}`;
+        const subject = "PLease confirm your account";
+
+        //importing template
+        const registerHandlebar = fs.readFileSync(
+          path.join(__dirname, "../views/register.hbs"),
+          "utf8"
+        );
+        const registerTemplate = handlebars.compile(registerHandlebar);
+
+        //sending mail to user email to confirm account
+        Mail.send(
+          { mailTo: email, subject, html: registerTemplate({ link }) },
+          (err, data) => {
+            if (err) {
+              Responser({
+                res,
+                status: 500,
+                body: null,
+                message: "internal-server-error",
+                devMessage: err,
+              });
+            }
+            if (data) {
+              Responser({
+                res,
+                status: 201,
+                body: null,
+                message: "confirmation-mail-sent",
+                devMessage: "created",
+              });
+            } else {
+              Responser({
+                res,
+                status: 402,
+                body: null,
+                message: "something-went-wrong",
+                devMessage: "something-went-wrong",
+              });
+            }
+          }
+        );
+      } else {
+        Responser({
+          res,
+          status: 503,
+          body: null,
+          message: "something-went-wrong",
+          devMessage: "something-went-wrong",
+        });
+      }
     }
   } catch (err) {
     Responser({
