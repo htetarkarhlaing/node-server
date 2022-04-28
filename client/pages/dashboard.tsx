@@ -159,7 +159,7 @@ const Dashboard: NextPage = () => {
               <div className="mx-2">
                 <p className="text-xs mx-1 text-indigo-100">SaSa</p>
                 <p className="bg-gray-500 bg-opacity-50 px-2 p-1 rounded-lg text-gray-200 text-sm">
-                  Let's Gooooo
+                  Lets Gooooo
                 </p>
               </div>
             </div>
