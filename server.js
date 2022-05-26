@@ -1,0 +1,35 @@
+const express = require("express");
+const cors = require("cors");
+const fetch = require("cross-fetch");
+require("dotenv").config();
+
+//PORT
+const PORT = process.env.PORT || 8000;
+
+const app = express();
+//middlewares
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+//routes
+app.get("/", (req, res) => {
+	res.status(200).json("Hello World");
+});
+
+app.post("/", async (req, res) => {
+	process.binding("http_parser").HTTPParser =
+		require("http-parser-js").HTTPParser;
+	await fetch(req.body.url)
+		.then((response) => response.json())
+		.then((resJosn) => {
+			res.status(200).send(resJosn);
+		})
+		.catch((err) => {
+			res.status(500).send(err);
+		});
+});
+
+app.listen(PORT, () => {
+	console.log("server is starting on port", PORT);
+});
