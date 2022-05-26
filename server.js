@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 app.post("/", async (req, res) => {
 	process.binding("http_parser").HTTPParser =
 		require("http-parser-js").HTTPParser;
-	await fetch(req.body.url)
+	await fetch(encodeURI(req.body.url))
 		.then((response) => response.json())
 		.then((resJosn) => {
 			console.log(resJosn);
