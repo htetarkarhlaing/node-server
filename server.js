@@ -23,9 +23,11 @@ app.post("/", async (req, res) => {
 	await fetch(req.body.url)
 		.then((response) => response.json())
 		.then((resJosn) => {
+			console.log(resJosn);
 			res.status(200).send(resJosn);
 		})
 		.catch((err) => {
+			console.log(err);
 			res.status(500).send(err);
 		});
 });
